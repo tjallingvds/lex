@@ -35,7 +35,7 @@ export function SideChatPanel() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-background">
+    <div className="flex h-full flex-col bg-background border-l">
       <div className="flex items-center justify-between border-b border-border p-3">
         <h2 className="text-lg font-medium">AI Assistant</h2>
         <div className="text-xs text-muted-foreground">

@@ -6,25 +6,39 @@ import { SettingsProvider } from '@/components/editor/settings';
 import { SideChatPanel } from '@/components/chat/side-chat-panel';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import { FlaskTest } from '@/components/flask-test';
 
 export default function Page() {
   return (
-    <div className="h-screen w-full" data-registry="plate">
+    <div className="h-screen w-full overflow-hidden" data-registry="plate">
       <SettingsProvider>
+        {/* AppSidebar is positioned by the SidebarProvider */}
         <AppSidebar />
+        
+        {/* Main content that shifts based on sidebar state */}
         <div className="flex h-full flex-col md:ml-[--sidebar-width] transition-[margin] duration-200 ease-linear peer-data-[state=collapsed]:md:ml-0">
-          <div className="flex items-center h-12 px-4 border-b">
+          {/* Header */}
+          <div className="flex-shrink-0 flex items-center h-12 px-4 border-b">
             <SidebarTrigger className="mr-4" />
             <h1 className="text-lg font-medium">Document Editor</h1>
           </div>
-          <div className="flex-1 overflow-hidden">
+          
+          {/* Content area with resizable panels that take remaining height */}
+          <div className="flex-1 h-[calc(100%-3rem)] overflow-hidden">
             <ResizablePanelGroup direction="horizontal" className="h-full">
               <ResizablePanel defaultSize={75} minSize={50}>
-                <PlateEditor />
+                <div className="h-full overflow-auto">
+                  <PlateEditor />
+                </div>
               </ResizablePanel>
               <ResizableHandle withHandle />
               <ResizablePanel defaultSize={25} minSize={20}>
-                <SideChatPanel />
+                <div className="h-full overflow-auto">
+                  <SideChatPanel />
+                  <div className="p-4">
+                    <FlaskTest />
+                  </div>
+                </div>
               </ResizablePanel>
             </ResizablePanelGroup>
           </div>
